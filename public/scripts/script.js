@@ -55,7 +55,9 @@ function writeAllWorkouts(response) {
                 data: newExercise,
                 method: "POST",
                 success: result => {
-                    writeExercises(result._id);
+                    if (result != "Invalid data.") {
+                        writeExercises(result._id);
+                    }
                 }
             })
         })
