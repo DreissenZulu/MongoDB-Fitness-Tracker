@@ -26,6 +26,17 @@ app.get("/workouts", (req, res) => {
         });
 })
 
+app.get("/populate/:workoutID", (req, res) => {
+    db.Workout.find({_id: req.params.workoutID})
+    .populate("exercises")
+    .then(dbRoutine => {
+        res.status(200).send(dbRoutine);
+    })
+        .catch(err => {
+        res.status(200).send(err);
+    });
+})
+
 app.post("/submit", (req, res) => {
     const newRoutine = new db.Workout(req.body)
     db.Workout.create(newRoutine)
