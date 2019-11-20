@@ -21,6 +21,11 @@ router.get("/populate/:workoutID", async (req, res) => {
     res.status(200).send(dbRoutine);
 })
 
+router.get("/api/workouts", async (req, res) => {
+    let dbRoutine = await db.Workout.find({}).populate("exercises")
+    res.json(dbRoutine);
+})
+
 router.post("/submit", async (req, res) => {
     const newRoutine = new db.Workout(req.body)
     let dbRoutine = await db.Workout.create(newRoutine)
