@@ -1,0 +1,24 @@
+{
+  "name": "mongodb-fitness-tracker",
+  "version": "1.0.0",
+  "description": "Fitness tracker built using NodeJS Express, Mongoose, and MongoDB",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DreissenZulu/MongoDB-Fitness-Tracker.git"
+  },
+  "author": "DreissenZulu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DreissenZulu/MongoDB-Fitness-Tracker/issues"
+  },
+  "homepage": "https://github.com/DreissenZulu/MongoDB-Fitness-Tracker#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.12"
+  }
+}
