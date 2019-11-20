@@ -1,5 +1,5 @@
 # MongoDB Fitness Tracker
-Fitness tracker built using NodeJS Express, Mongoose, and MongoDB
+Fitness tracker built using NodeJS Express, Mongoose, and MongoDB. Users can create a new workout routine by entering a unique name, which is saved to the database. Users can then add exercises to the workout routine.
 
 ## Approach
 Probably the most important step, I needed to figure out what I needed to do to start this app. I broke down my objective into a few key steps:
@@ -8,3 +8,6 @@ Probably the most important step, I needed to figure out what I needed to do to 
 3. Get user input about whether they want to create a new workout, or continue an existing one
 4. After choosing a workout, allow users to add new exercises to the workout
 5. Save the workout and the exercises to the database
+
+## Challenges
+The biggest challenge was familiarizing myself with the MongoDB and Mongoose methods and functions. I had a lot of difficulty understanding how to use MongoDB's version of the ID, and I struggled to find out how to search by ID as I couldn't find the right syntax. Console logging was a huge help in this assignment, allowing me to see exactly what was being passed through (if the program even gets that far).
