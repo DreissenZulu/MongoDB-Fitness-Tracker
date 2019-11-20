@@ -9,20 +9,36 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <style>
+        .container {
+            max-width: 768px;
+        }
+        .btn {
+            margin: 0 5px;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
     <title>Fitness Tracker</title>
 </head>
 
 <body>
     <div class="jumbotron jumbotron-fluid">
-        <div class="container" style="max-width: 768px;">
+        <div class="container">
             <h1 class="display-4">Fitness Tracker</h1>
             <p class="lead">Create and manage your workout routines!</p>
         </div>
     </div>
-    <div id="getFit" class="container" style="max-width: 768px;">
+    <div id="getFit" class="container">
         <h2>Select below to continue a previous workout or start a new one</h2>
-        <button class="btn btn-primary" id="loadWorkout">Load Workout</button>
-        <button class="btn btn-secondary" id="newWorkout">New Workout</button>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-primary" id="loadWorkout">Load Workout</button>
+            <button class="btn btn-secondary" id="newWorkout">New Workout</button>
+        </div>
+    </div>
+    <div class="container">
+        <a href="/api/workouts">See all the workouts (and their exercises) logged here</a>
     </div>
     <script src="./scripts/script.js"></script>
 </body>
