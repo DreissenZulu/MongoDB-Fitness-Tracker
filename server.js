@@ -38,13 +38,19 @@ app.post("/submit", (req, res) => {
 });
 
 app.post("/add", (req, res) => {
-    const newRoutine = new db.Workout(req.body)
-    db.Workout.create(newRoutine)
+    let exerciseInfo = {
+        name: req.body.name,
+        reps: req.body.reps
+    }
+    const newExercise = new db.Exercise(exerciseInfo)
+    db.Exercise.create(newExercise)
+        .then(({_id}) => 
+            db.Workout.findOneAndUpdate({_id: req.body.workout}, { $push: { exercises: _id } }, { new: true }))
         .then(dbRoutine => {
             res.status(200).send(dbRoutine);
         })
         .catch(err => {
-            res.status(200).send(`Workout already exists.`)
+            res.status(200).send(`Invalid data.`)
         })
 });
 
