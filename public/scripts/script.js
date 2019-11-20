@@ -29,7 +29,7 @@ function writeExerciseForm(buttonTarget) {
 }
 
 function writeAllWorkouts(response) {
-    $("#getFit").html("<h2>Choose a workout routine</h2>")
+    $("#getFit").html(`<h2>Choose a workout routine</h2>`)
     for (routine of response) {
         $("#getFit").append(`
             <button class="btn btn-success workoutBtn" value="${routine._id}">${routine.name}</button>
@@ -77,7 +77,7 @@ $("#loadWorkout").click(() => {
 $("#newWorkout").click(() => {
     $("#getFit").html(`
     <form action="/submit" method="post">
-        <div class="form-group>
+        <div class="form-group">
             <label for="workoutName">Name of Workout Routine</label>
             <input class="form-control" type="text" name="workoutName" value="" placeholder="Workout Title">
         </div>
