@@ -1,3 +1,19 @@
+function writeExercises(id) {
+    $("#getFit").html(`
+    <h2>Current Routine</h2>
+    <ul id="exerciseList"></ul>
+    `)
+    $.ajax({
+        url: `/populate/${id}`,
+        method: "GET",
+        success: result => {
+            for (exercise of result[0].exercises) {
+                $("#exerciseList").append(`<li>${exercise.name} (Reps: ${exercise.reps})</li>`)
+            }
+        }
+    })
+}
+
 $("#loadWorkout").click(() => {
     $.ajax({
         url: "/workouts",
@@ -11,13 +27,18 @@ $("#loadWorkout").click(() => {
             }
             $(".workoutBtn").click(event => {
                 let workoutID = $(event.currentTarget).val();
-                $("#getFit").html(`
+                writeExercises(workoutID)
+                $("#getFit").append(`
                 <h2>Add Exercise to ${$(event.currentTarget).text()}</h2>
                 <form action="/add" method="post">
-                    <label for="exerciseName">Name of Exercise</label>
-                    <input type="text" name="exerciseName" value="" placeholder="Exercise">
-                    <label for="exerciseReps">Number of Reps</label>
-                    <input type="number" name="exerciseReps" value="" placeholder="# of Reps">
+                    <div class="form-group>
+                        <label for="exerciseName">Name of Exercise</label>
+                        <input class="form-control" type="text" name="exerciseName" value="" placeholder="Exercise">
+                    </div>
+                    <div class="form-group">
+                        <label for="exerciseReps">Number of Reps</label>
+                        <input class="form-control" type="number" name="exerciseReps" value="" placeholder="# of Reps">
+                    </div>
                     <button class="btn btn-primary" id="addExercise">Add to Workout</button>
                 </form>
                 `);
@@ -33,7 +54,7 @@ $("#loadWorkout").click(() => {
                         data: newExercise,
                         method: "POST",
                         success: result => {
-                            console.log(result);
+                            location.reload();
                         }
                     })
                 })
@@ -45,8 +66,10 @@ $("#loadWorkout").click(() => {
 $("#newWorkout").click(() => {
     $("#getFit").html(`
     <form action="/submit" method="post">
-        <label for="workoutName">Name of Workout Routine</label>
-        <input type="text" name="workoutName" value="" placeholder="Workout Title">
+        <div class="form-group>
+            <label for="workoutName">Name of Workout Routine</label>
+            <input class="form-control" type="text" name="workoutName" value="" placeholder="Workout Title">
+        </div>
         <button class="btn btn-primary" id="createWorkout">Submit</button>
     </form>
     `);
@@ -56,8 +79,8 @@ $("#newWorkout").click(() => {
             url: "/submit",
             data: {name: $("input[name*='workoutName']").val()},
             method: "POST",
-            success: result => {
-                console.log(result);
+            success: () => {
+                location.reload();
             }
         })
     })
