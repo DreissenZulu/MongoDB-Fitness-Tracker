@@ -10,7 +10,6 @@ router.get("/", (req, res) => {
     res.status(200).sendFile("index.html");
 })
 
-try {
 router.get("/workouts", async (req, res) => {
     let dbRoutine = await db.Workout.find({})
     res.status(200).send(dbRoutine);
@@ -28,8 +27,12 @@ router.get("/api/workouts", async (req, res) => {
 
 router.post("/submit", async (req, res) => {
     const newRoutine = new db.Workout(req.body)
-    let dbRoutine = await db.Workout.create(newRoutine)
-    res.status(200).send(dbRoutine);
+    try {
+        let dbRoutine = await db.Workout.create(newRoutine);
+        res.status(200).send(dbRoutine);
+    } catch (err) {
+        res.status(200).send(err._message);
+    }
 });
 
 router.post("/add", async (req, res) => {
@@ -38,13 +41,21 @@ router.post("/add", async (req, res) => {
         reps: req.body.reps
     }
     const newExercise = new db.Exercise(exerciseInfo)
-    let addExercise = await db.Exercise.create(newExercise)
-    let dbRoutine = await db.Workout.findOneAndUpdate({_id: req.body.workout}, { $push: { exercises: addExercise._id } }, { new: true })
-    res.status(200).send(dbRoutine);
+    try {
+        let addExercise = await db.Exercise.create(newExercise)
+        try {
+            let dbRoutine = await db.Workout.findOneAndUpdate({_id: req.body.workout}, { $push: { exercises: addExercise._id } }, { new: true })
+            res.status(200).send(dbRoutine);
+        } catch (err) {
+            res.status(200).send(err);
+        }
+    } catch (err) {
+        res.status(200).send(err);
+    }
 });
 
-} catch (err) {
-    console.log(`Failed server action. Error: ${err}`)
-}
+process.on('uncaughtException', err => {
+    console.log(err);
+})
 
 module.exports = router;
