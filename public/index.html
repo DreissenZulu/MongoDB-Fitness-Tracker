@@ -10,12 +10,26 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <style>
+        .jumbotron {
+            transform: rotate(3deg);
+            width: 140vw;
+            height: 220px;
+            margin-top: -30px;
+        }
+        .jumbotron-text {
+            position: relative;
+            margin-top: -200px;
+        }
+        #getFit {
+            margin-top: 80px;
+        }
         .container {
             max-width: 768px;
         }
         .btn {
             margin: 0 5px;
         }
+
         h2 {
             text-align: center;
         }
@@ -25,10 +39,10 @@
 
 <body>
     <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">Fitness Tracker</h1>
-            <p class="lead">Create and manage your workout routines!</p>
-        </div>
+    </div>
+    <div class="container jumbotron-text">
+        <h1 class="display-4">Fitness Tracker</h1>
+        <p class="lead">Create and manage your workout routines!</p>
     </div>
     <div id="getFit" class="container">
         <h2>Select below to continue a previous workout or start a new one</h2>
