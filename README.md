@@ -1,5 +1,6 @@
 # MongoDB Fitness Tracker
 Fitness tracker built using NodeJS Express, Mongoose, and MongoDB. Users can create a new workout routine by entering a unique name, which is saved to the database. Users can then add exercises to the workout routine.
+Currently deployed on Heroku at https://salty-stream-36990.herokuapp.com
 
 ## Approach
 Probably the most important step, I needed to figure out what I needed to do to start this app. I broke down my objective into a few key steps:
