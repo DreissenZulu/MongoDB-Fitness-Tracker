@@ -1,3 +1,5 @@
+let alertTimeout = 0;
+
 function writeExercises(id) {
     $("#exerciseList").html("");
     $.ajax({
@@ -45,17 +47,28 @@ function writeAllWorkouts(response) {
         writeExerciseForm(event.currentTarget)
         $("#addExercise").click((event) => {
             event.preventDefault();
+            let numReps = $("input[name*='exerciseReps']").val()
             let newExercise = {
                 workout: workoutID,
-                name: $("input[name*='exerciseName']").val(),
-                reps: $("input[name*='exerciseReps']").val()
+                name: $("input[name*='exerciseName']").val().trim(),
+                reps: (numReps > 0) ? numReps : undefined
             }
             $.ajax({
                 url: "/add",
                 data: newExercise,
                 method: "POST",
                 success: result => {
-                    if (result != "Invalid data.") {
+                    clearTimeout(alertTimeout);
+                    if (result.errors != undefined) {
+                        if (result.errors.name) {
+                            $(".alert-warning").text("Please enter the exercise you want to add.").attr('style', 'display:block;')
+                        } else if (result.errors.reps) {
+                            $(".alert-warning").text("Please enter the number of reps.").attr('style', 'display:block;')
+                        }
+                        alertTimeout = setTimeout(() => {
+                            $(".alert-warning").attr('style', 'display:none;')
+                        }, 4000)
+                    } else {
                         writeExercises(result._id);
                     }
                 }
@@ -88,10 +101,18 @@ $("#newWorkout").click(() => {
         event.preventDefault();
         $.ajax({
             url: "/submit",
-            data: {name: $("input[name*='workoutName']").val()},
+            data: { name: $("input[name*='workoutName']").val().trim() },
             method: "POST",
-            success: () => {
-                location.reload();
+            success: (result) => {
+                clearTimeout(alertTimeout);
+                if (result != 'Workout validation failed') {
+                    location.reload();
+                } else {
+                    $(".alert-warning").text("Please enter the name of your new workout routine.").attr('style', 'display:block;')
+                    alertTimeout = setTimeout(() => {
+                        $(".alert-warning").attr('style', 'display:none;')
+                    }, 4000)
+                }
             }
         })
     })
